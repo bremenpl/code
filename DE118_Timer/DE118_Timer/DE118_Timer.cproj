@@ -113,6 +113,15 @@
     <Compile Include="DE118_Timer.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="u_hardware.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u_hardware.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="u_tables.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
