@@ -23,11 +23,17 @@ int main(void)
 	// disable global interrupts
 	cli();
 	
+	// Initialize button pressed time timer
+	BtnPressTimer1_Init();
+	
 	// Initialize 1 sec timer
 	OneSecTim2_Init();
 	
 	// System timer init, for display refreshing and events handling
 	SystemTim0_Init();
+	
+	// Initialize shift register peripheral
+	ShiftRegisterInit();
 	
 	// Initialize buttons
 	Buttons_Init();
@@ -40,9 +46,7 @@ int main(void)
 
     while(1)
     {
-		asm("NOP");
 		_delay_ms(1000);
-		//PINC |= _BV(0);
     }
 }
 

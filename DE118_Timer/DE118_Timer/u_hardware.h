@@ -17,26 +17,20 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "u_tables.h"
+
 // Pins:
-#define BTN1_PORT		PORTC
-#define BTN1_DDR		DDRC
-#define BTN1_PIN		PINC
-#define BTN1_P			5
-#define BTN1_PCINT		PCINT13
 
-#define BTN2_PORT		PORTC
-#define BTN2_DDR		DDRC
-#define BTN2_PIN		PINC
-#define BTN2_P			3
-#define BTN2_PCINT		PCINT11
-
-#define BTN3_PORT		PORTC
-#define BTN3_DDR		DDRC
-#define BTN3_PIN		PINC
-#define BTN3_P			4
-#define BTN3_PCINT		PCINT12
+// SPI
 
 #define BUTTONS_NR		3
+
+#define TIME_MAX_MM		99
+#define TIME_MAX_SS		59
+
+#define COLON_PRESC		70
+
+#define HOLD_ACTION_VAL	5
 
 // Struct defining a gpio. All the hardware specs has to be filled manually.
 typedef struct  
@@ -58,18 +52,29 @@ typedef struct
 	bool				isPressed;
 } button_t;
 
+// struct defining shift register
+typedef struct  
+{
+	gpio_t				mosi;
+	gpio_t				miso;
+	gpio_t				ncs;
+	gpio_t				sck;
+	
+	union32_t			timeReg;
+	union32_t			digitVisible;
+} shiftR_t;
+
 extern button_t buttons[3];
 extern gpio_t	buzzer;
 
 // Functions prototypes
 void OneSecTim2_Init();
 void SystemTim0_Init();
-
+void BtnPressTimer1_Init();
+void ShiftRegisterInit();
+void Shr_SendTimeRegister();
 void Buttons_Init();
-
 void Buzzer_Init();
-void BuzzOn();
-void BuzzOff();
-void BuzzToggle();
+
 
 #endif /* U_HARDWARE_H_ */
